@@ -764,8 +764,9 @@ bool updateInformation(const char* buffer, char username[]) {
 	char newName[32] = "\0";
 	char* usernamePointer = username;
 	printf("realname duoc truyen vao o updateinfor la: %s \n", username);
-	sscanf(body, "oldPassword=%[^\r]\r\nnewPassword=%[^\r]\r\n", oldPassword, newPassword);
-	sscanf(body, "%*[^\r\nnewName]newName=%[^\r]",  newName);
+	sscanf(body, "oldPassword=%[^\r]\r\nnewPassword=%[^\r]\r\nnewName=%[^\r]", oldPassword, newPassword, newName);
+	body = strstr(body, "newName=");
+	sscanf(body, "newName=%[^\r\n]", newName);
 	if (checkOldPassword(oldPassword) == true) {
 		if (strlen(newPassword) > 0) {
 			changeValue(usernamePointer, "password", newPassword);
